@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discoadamus</title>
     <style>
-        /* CSS zintegrowany wewnątrz HTML */
         body {
             margin: 0;
             padding: 0;
@@ -17,7 +16,6 @@
             flex-direction: column;
         }
 
-        /* Pasek Menu */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -28,54 +26,57 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .navbar .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #4cc9f0;
-        }
-
-        .navbar ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-
-        .navbar a {
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .navbar a:hover {
-            color: #4cc9f0;
-        }
-
-        /* Sekcja środkowa */
         .hero {
             flex-grow: 1;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            gap: 20px;
         }
 
         .glass-card {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(20px);
-            padding: 50px 80px;
+            padding: 40px 60px;
             border-radius: 30px;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
         }
 
-        .glass-card h1 {
-            margin: 0;
-            font-size: 4rem;
-            letter-spacing: 5px;
+        h1 {
+            font-size: 3rem;
             text-transform: uppercase;
             background: linear-gradient(to right, #f72585, #4cc9f0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin: 0 0 20px 0;
+        }
+
+        /* Przyciski przełącznika */
+        .switcher {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: 0.3s;
+        }
+
+        .btn:hover, .btn.active {
+            background: #4cc9f0;
+        }
+
+        #stats-display {
+            font-size: 1.2rem;
+            color: #ddd;
         }
     </style>
 </head>
@@ -83,19 +84,40 @@
 
     <nav class="navbar">
         <div class="logo">Discoadamus</div>
-        <ul>
-            <li><a href="#">Start</a></li>
-            <li><a href="#">O nas</a></li>
-            <li><a href="#">Projekty</a></li>
-            <li><a href="#">Kontakt</a></li>
-        </ul>
     </nav>
 
     <main class="hero">
         <div class="glass-card">
             <h1>DISCO ADAMUS</h1>
+            
+            <!-- Przełącznik -->
+            <div class="switcher">
+                <button class="btn active" onclick="showStats('youtube')">YouTube</button>
+                <button class="btn" onclick="showStats('tiktok')">TikTok</button>
+            </div>
+
+            <!-- Miejsce na statystyki -->
+            <div id="stats-display">Wybierz platformę, aby zobaczyć statystyki.</div>
         </div>
     </main>
+
+    <script>
+        function showStats(platform) {
+            const display = document.getElementById('stats-display');
+            const buttons = document.querySelectorAll('.btn');
+            
+            // Usuń klasę active ze wszystkich przycisków
+            buttons.forEach(btn => btn.classList.remove('active'));
+            // Dodaj active do klikniętego
+            event.target.classList.add('active');
+
+            if (platform === 'youtube') {
+                display.innerHTML = "Statystyki YouTube: <strong>12.5K Subskrypcji</strong>";
+            } else if (platform === 'tiktok') {
+                display.innerHTML = "Statystyki TikTok: <strong>45.2K Obserwujących</strong>";
+            }
+        }
+    </script>
 
 </body>
 </html>
