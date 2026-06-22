@@ -6,14 +6,28 @@
     <title>Discoadamus</title>
     <style>
         body { margin: 0; font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #f5f7fa, #c3cfe2); height: 100vh; display: flex; flex-direction: column; }
-        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.3); }
+        
+        .navbar { display: flex; align-items: center; padding: 20px 50px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.3); }
+        .logo { margin-right: auto; font-weight: bold; }
+        
         .hero { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; }
-        h1 { font-size: 4rem; text-transform: uppercase; margin: 0; color: #1a1a2e; }
-        .stats-wrapper { position: relative; background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.5); padding: 30px 50px; border-radius: 20px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); }
+        
+        /* Animacja gradientu */
+        h1 { 
+            font-size: 4rem; text-transform: uppercase; margin: 0; 
+            background: linear-gradient(90deg, #f72585, #4cc9f0, #f72585);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
+        }
+        @keyframes shine { to { background-position: 200% center; } }
+        
+        .stats-wrapper { background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.5); padding: 30px 50px; border-radius: 20px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); }
         .glass-stats { display: flex; gap: 40px; justify-content: center; }
         .stat-item { text-align: center; }
         .stat-value { display: block; font-size: 1.8rem; font-weight: bold; color: #1a1a2e; }
-        .powered-by { position: absolute; bottom: 10px; left: 15px; font-size: 0.7rem; color: #555; opacity: 0.7; }
+        
         .switcher { display: flex; gap: 15px; justify-content: center; }
         .btn { padding: 10px 25px; border: none; border-radius: 50px; cursor: pointer; background: rgba(255, 255, 255, 0.5); font-weight: bold; transition: 0.3s; }
         .btn.active { background: #4cc9f0; color: white; }
@@ -21,7 +35,9 @@
 </head>
 <body>
 
-    <nav class="navbar"><div class="logo"><strong>Discoadamus</strong></div></nav>
+    <nav class="navbar">
+        <div class="logo">Discoadamus</div>
+    </nav>
 
     <main class="hero">
         <h1>DISCO ADAMUS</h1>
@@ -29,10 +45,13 @@
             <button class="btn active" onclick="updateStats('youtube', event)">YouTube</button>
             <button class="btn" onclick="updateStats('tiktok', event)">TikTok</button>
         </div>
+
+        <div class="stats-wrapper">
+            <div id="stats-display" class="glass-stats"></div>
+        </div>
     </main>
 
     <script>
-        // --- TU EDYTUJ SWOJE STATYSTYKI ---
         const data = {
             youtube: [
                 { label: "Subskrypcje", value: 12200, suffix: "K" },
@@ -48,9 +67,8 @@
 
         function animateNumber(element, target, suffix) {
             let start = 0;
-            const duration = 2000; // Czas animacji w ms
+            const duration = 2000;
             const step = target / (duration / 16);
-            
             const timer = setInterval(() => {
                 start += step;
                 if (start >= target) {
@@ -67,20 +85,18 @@
                 document.querySelectorAll('.btn').forEach(btn => btn.classList.remove('active'));
                 event.target.classList.add('active');
             }
-
             const display = document.getElementById('stats-display');
-            display.innerHTML = ""; // Czyści obecne
+            display.innerHTML = ""; 
 
             data[platform].forEach(item => {
                 const div = document.createElement('div');
                 div.className = 'stat-item';
-                div.innerHTML = `<span class="stat-value" id="val">0</span>${item.label}`;
+                div.innerHTML = `<span class="stat-value">0</span>${item.label}`;
                 display.appendChild(div);
                 animateNumber(div.querySelector('.stat-value'), item.value, item.suffix);
             });
         }
 
-        // Start domyślny
         updateStats('youtube');
     </script>
 </body>
