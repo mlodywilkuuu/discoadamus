@@ -9,7 +9,6 @@
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', sans-serif;
-            /* Tło z lekkim gradientem, by efekt szkła był widoczny */
             background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
             height: 100vh;
             display: flex;
@@ -42,23 +41,36 @@
             color: #1a1a2e;
         }
 
-        /* Efekt szkła dla sekcji statystyk */
+        /* Szklany kontener */
         .glass-stats {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 30px 50px;
             border-radius: 20px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            
+            /* Ułożenie poziome */
+            display: flex;
+            gap: 40px; 
+            justify-content: center;
+        }
+
+        .stat-item {
             text-align: center;
-            min-width: 300px;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1a1a2e;
         }
 
         .switcher {
             display: flex;
             gap: 15px;
             justify-content: center;
-            margin-bottom: 20px;
         }
 
         .btn {
@@ -74,11 +86,6 @@
         .btn.active {
             background: #4cc9f0;
             color: white;
-        }
-
-        .stat-item {
-            margin: 10px 0;
-            font-size: 1.1rem;
         }
     </style>
 </head>
@@ -97,21 +104,23 @@
         </div>
 
         <div id="stats-display" class="glass-stats">
-            Wybierz platformę, aby zobaczyć szczegółowe dane.
+            <div class="stat-item"><span class="stat-value">12.5K</span> Subskrypcji</div>
+            <div class="stat-item"><span class="stat-value">1.2M</span> Wyświetleń</div>
+            <div class="stat-item"><span class="stat-value">142</span> Filmów</div>
         </div>
     </main>
 
     <script>
         const stats = {
             youtube: `
-                <div class="stat-item">Subskrypcje: <strong>12.5K</strong></div>
-                <div class="stat-item">Wyświetlenia: <strong>1.2M</strong></div>
-                <div class="stat-item">Filmy: <strong>142</strong></div>
+                <div class="stat-item"><span class="stat-value">12.5K</span> Subskrypcji</div>
+                <div class="stat-item"><span class="stat-value">1.2M</span> Wyświetleń</div>
+                <div class="stat-item"><span class="stat-value">142</span> Filmów</div>
             `,
             tiktok: `
-                <div class="stat-item">Obserwujący: <strong>45.2K</strong></div>
-                <div class="stat-item">Polubienia: <strong>890K</strong></div>
-                <div class="stat-item">Liczba klipów: <strong>320</strong></div>
+                <div class="stat-item"><span class="stat-value">45.2K</span> Obserwujących</div>
+                <div class="stat-item"><span class="stat-value">890K</span> Polubień</div>
+                <div class="stat-item"><span class="stat-value">320</span> Klipów</div>
             `
         };
 
