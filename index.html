@@ -7,9 +7,9 @@
     <style>
         body { margin: 0; font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #f5f7fa, #c3cfe2); min-height: 100vh; display: flex; flex-direction: column; padding-bottom: 50px; }
         
-        .navbar { display: flex; align-items: center; padding: 20px 50px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.3); }
+        /* Logo wyrównane do lewej na maxa */
+        .navbar { display: flex; align-items: center; padding: 20px 50px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.3); justify-content: flex-start; }
         
-        /* Animowany napis w menu */
         .animated-text { 
             font-size: 1.5rem; font-weight: bold; text-transform: uppercase;
             background: linear-gradient(90deg, #f72585, #4cc9f0, #f72585);
@@ -36,14 +36,15 @@
         .stat-item { text-align: center; }
         .stat-value { display: block; font-size: 1.8rem; font-weight: bold; color: #1a1a2e; }
         
-        .switcher { display: flex; gap: 15px; justify-content: center; }
         .btn { padding: 10px 25px; border: none; border-radius: 50px; cursor: pointer; background: rgba(255, 255, 255, 0.5); font-weight: bold; transition: 0.3s; }
         .btn.active { background: #4cc9f0; color: white; }
 
-        /* Kalendarz */
-        .calendar-box { margin-top: 30px; width: 400px; text-align: center; }
-        .event-list { list-style: none; padding: 0; text-align: left; }
-        .event-item { margin: 10px 0; padding: 10px; background: rgba(255, 255, 255, 0.2); border-radius: 10px; }
+        /* Ładniejszy kalendarz */
+        .calendar-box { margin-top: 30px; width: 450px; }
+        .calendar-box h3 { text-align: center; margin-bottom: 20px; color: #1a1a2e; }
+        .event-row { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.3); }
+        .event-row:last-child { border-bottom: none; }
+        .date-box { background: #4cc9f0; color: white; padding: 10px; border-radius: 10px; font-weight: bold; text-align: center; min-width: 60px; margin-right: 20px; }
     </style>
 </head>
 <body>
@@ -54,7 +55,7 @@
 
     <main class="hero">
         <h1>DISCO ADAMUS</h1>
-        <div class="switcher">
+        <div class="switcher" style="display:flex; gap:15px;">
             <button class="btn active" onclick="updateStats('youtube', event)">YouTube</button>
             <button class="btn" onclick="updateStats('tiktok', event)">TikTok</button>
         </div>
@@ -63,13 +64,16 @@
             <div id="stats-display" class="glass-stats"></div>
         </div>
 
-        <!-- Kalendarz -->
         <div class="glass-box calendar-box">
-            <h3>Nadchodzące wydarzenia</h3>
-            <ul class="event-list">
-                <li class="event-item">📅 25.06 - Live Stream Q&A</li>
-                <li class="event-item">📅 30.06 - Nowy projekt na YT</li>
-            </ul>
+            <h3>Harmonogram Wydarzeń</h3>
+            <div class="event-row">
+                <div class="date-box">25.06</div>
+                <div class="event-desc">Live Stream: Q&A z fanami</div>
+            </div>
+            <div class="event-row">
+                <div class="date-box">30.06</div>
+                <div class="event-desc">Premiera nowego projektu</div>
+            </div>
         </div>
     </main>
 
@@ -118,7 +122,6 @@
                 animateNumber(div.querySelector('.stat-value'), item.value, item.suffix);
             });
         }
-
         updateStats('youtube');
     </script>
 </body>
