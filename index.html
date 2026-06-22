@@ -9,8 +9,8 @@
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', sans-serif;
-            background-color: #ffffff;
-            color: #333;
+            /* Tło z lekkim gradientem, by efekt szkła był widoczny */
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -21,8 +21,9 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 50px;
-            background: #f8f9fa;
-            border-bottom: 1px solid #eaeaea;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .hero {
@@ -31,7 +32,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 20px;
+            gap: 30px;
         }
 
         h1 {
@@ -41,32 +42,43 @@
             color: #1a1a2e;
         }
 
+        /* Efekt szkła dla sekcji statystyk */
+        .glass-stats {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            min-width: 300px;
+        }
+
         .switcher {
             display: flex;
             gap: 15px;
             justify-content: center;
+            margin-bottom: 20px;
         }
 
         .btn {
-            padding: 12px 30px;
-            border: 2px solid #4cc9f0;
+            padding: 10px 25px;
+            border: none;
             border-radius: 50px;
             cursor: pointer;
-            background: transparent;
-            color: #4cc9f0;
+            background: rgba(255, 255, 255, 0.5);
             font-weight: bold;
             transition: 0.3s;
         }
 
-        .btn:hover, .btn.active {
+        .btn.active {
             background: #4cc9f0;
             color: white;
         }
 
-        #stats-display {
-            font-size: 1.5rem;
-            font-weight: 500;
-            margin-top: 20px;
+        .stat-item {
+            margin: 10px 0;
+            font-size: 1.1rem;
         }
     </style>
 </head>
@@ -80,31 +92,38 @@
         <h1>DISCO ADAMUS</h1>
         
         <div class="switcher">
-            <button class="btn active" onclick="showStats('youtube')">YouTube</button>
-            <button class="btn" onclick="showStats('tiktok')">TikTok</button>
+            <button class="btn active" onclick="showStats('youtube', event)">YouTube</button>
+            <button class="btn" onclick="showStats('tiktok', event)">TikTok</button>
         </div>
 
-        <div id="stats-display">Wybierz platformę, aby zobaczyć statystyki.</div>
+        <div id="stats-display" class="glass-stats">
+            Wybierz platformę, aby zobaczyć szczegółowe dane.
+        </div>
     </main>
 
     <script>
-        // TUTAJ EDYTUJ SWOJE STATYSTYKI
         const stats = {
-            youtube: "YouTube: <strong>12.5K Subskrypcji</strong>",
-            tiktok: "TikTok: <strong>45.2K Obserwujących</strong>"
+            youtube: `
+                <div class="stat-item">Subskrypcje: <strong>12.5K</strong></div>
+                <div class="stat-item">Wyświetlenia: <strong>1.2M</strong></div>
+                <div class="stat-item">Filmy: <strong>142</strong></div>
+            `,
+            tiktok: `
+                <div class="stat-item">Obserwujący: <strong>45.2K</strong></div>
+                <div class="stat-item">Polubienia: <strong>890K</strong></div>
+                <div class="stat-item">Liczba klipów: <strong>320</strong></div>
+            `
         };
 
-        function showStats(platform) {
+        function showStats(platform, event) {
             const display = document.getElementById('stats-display');
             const buttons = document.querySelectorAll('.btn');
             
             buttons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
 
-            // Wyświetla statystyki zdefiniowane wyżej
             display.innerHTML = stats[platform];
         }
     </script>
-
 </body>
 </html>
