@@ -9,8 +9,8 @@
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-            color: white;
+            background-color: #ffffff;
+            color: #333;
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -21,9 +21,8 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 50px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: #f8f9fa;
+            border-bottom: 1px solid #eaeaea;
         }
 
         .hero {
@@ -35,87 +34,75 @@
             gap: 20px;
         }
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            padding: 40px 60px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            text-align: center;
-        }
-
         h1 {
-            font-size: 3rem;
+            font-size: 4rem;
             text-transform: uppercase;
-            background: linear-gradient(to right, #f72585, #4cc9f0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 0 0 20px 0;
+            margin: 0;
+            color: #1a1a2e;
         }
 
-        /* Przyciski przełącznika */
         .switcher {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 15px;
+            justify-content: center;
         }
 
         .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 10px;
+            padding: 12px 30px;
+            border: 2px solid #4cc9f0;
+            border-radius: 50px;
             cursor: pointer;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
+            background: transparent;
+            color: #4cc9f0;
+            font-weight: bold;
             transition: 0.3s;
         }
 
         .btn:hover, .btn.active {
             background: #4cc9f0;
+            color: white;
         }
 
         #stats-display {
-            font-size: 1.2rem;
-            color: #ddd;
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <div class="logo">Discoadamus</div>
+        <div class="logo"><strong>Discoadamus</strong></div>
     </nav>
 
     <main class="hero">
-        <div class="glass-card">
-            <h1>DISCO ADAMUS</h1>
-            
-            <!-- Przełącznik -->
-            <div class="switcher">
-                <button class="btn active" onclick="showStats('youtube')">YouTube</button>
-                <button class="btn" onclick="showStats('tiktok')">TikTok</button>
-            </div>
-
-            <!-- Miejsce na statystyki -->
-            <div id="stats-display">Wybierz platformę, aby zobaczyć statystyki.</div>
+        <h1>DISCO ADAMUS</h1>
+        
+        <div class="switcher">
+            <button class="btn active" onclick="showStats('youtube')">YouTube</button>
+            <button class="btn" onclick="showStats('tiktok')">TikTok</button>
         </div>
+
+        <div id="stats-display">Wybierz platformę, aby zobaczyć statystyki.</div>
     </main>
 
     <script>
+        // TUTAJ EDYTUJ SWOJE STATYSTYKI
+        const stats = {
+            youtube: "YouTube: <strong>12.5K Subskrypcji</strong>",
+            tiktok: "TikTok: <strong>45.2K Obserwujących</strong>"
+        };
+
         function showStats(platform) {
             const display = document.getElementById('stats-display');
             const buttons = document.querySelectorAll('.btn');
             
-            // Usuń klasę active ze wszystkich przycisków
             buttons.forEach(btn => btn.classList.remove('active'));
-            // Dodaj active do klikniętego
             event.target.classList.add('active');
 
-            if (platform === 'youtube') {
-                display.innerHTML = "Statystyki YouTube: <strong>12.5K Subskrypcji</strong>";
-            } else if (platform === 'tiktok') {
-                display.innerHTML = "Statystyki TikTok: <strong>45.2K Obserwujących</strong>";
-            }
+            // Wyświetla statystyki zdefiniowane wyżej
+            display.innerHTML = stats[platform];
         }
     </script>
 
