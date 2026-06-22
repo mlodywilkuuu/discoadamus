@@ -41,16 +41,19 @@
             color: #1a1a2e;
         }
 
-        /* Szklany kontener */
-        .glass-stats {
+        /* Główny kontener statystyk */
+        .stats-wrapper {
+            position: relative;
             background: rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.5);
             padding: 30px 50px;
             border-radius: 20px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            
-            /* Ułożenie poziome */
+        }
+
+        /* Ułożenie poziome statystyk */
+        .glass-stats {
             display: flex;
             gap: 40px; 
             justify-content: center;
@@ -65,6 +68,16 @@
             font-size: 1.5rem;
             font-weight: bold;
             color: #1a1a2e;
+        }
+
+        /* Napis powered by */
+        .powered-by {
+            position: absolute;
+            bottom: 10px;
+            left: 20px;
+            font-size: 0.7rem;
+            color: #555;
+            opacity: 0.7;
         }
 
         .switcher {
@@ -103,10 +116,13 @@
             <button class="btn" onclick="showStats('tiktok', event)">TikTok</button>
         </div>
 
-        <div id="stats-display" class="glass-stats">
-            <div class="stat-item"><span class="stat-value">12.5K</span> Subskrypcji</div>
-            <div class="stat-item"><span class="stat-value">1.2M</span> Wyświetleń</div>
-            <div class="stat-item"><span class="stat-value">142</span> Filmów</div>
+        <div class="stats-wrapper">
+            <div id="stats-display" class="glass-stats">
+                <div class="stat-item"><span class="stat-value">12.5K</span> Subskrypcji</div>
+                <div class="stat-item"><span class="stat-value">1.2M</span> Wyświetleń</div>
+                <div class="stat-item"><span class="stat-value">142</span> Filmów</div>
+            </div>
+            <div class="powered-by">Powered by SocialBlade</div>
         </div>
     </main>
 
