@@ -5,33 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discoadamus</title>
     <style>
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #f5f7fa, #c3cfe2); min-height: 100vh; display: flex; flex-direction: column; padding-bottom: 50px; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #f5f7fa, #c3cfe2); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding-bottom: 50px; }
         
-        /* Logo na samym skraju lewej */
-        .navbar { display: flex; align-items: center; padding: 20px 20px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.3); justify-content: flex-start; }
+        .navbar { width: 100%; display: flex; align-items: center; padding: 20px 40px; box-sizing: border-box; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.3); justify-content: flex-start; }
         
-        .animated-text { 
-            font-size: 1.5rem; font-weight: bold; text-transform: uppercase;
-            background: linear-gradient(90deg, #f72585, #4cc9f0, #f72585);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shine 3s linear infinite;
-        }
+        .animated-text { font-size: 1.5rem; font-weight: bold; text-transform: uppercase; background: linear-gradient(90deg, #f72585, #4cc9f0, #f72585); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite; }
 
-        .hero { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; margin-top: 50px; }
+        .hero { display: flex; flex-direction: column; align-items: center; gap: 30px; margin-top: 50px; width: 100%; }
         
-        h1 { 
-            font-size: 4rem; text-transform: uppercase; margin: 0; 
-            background: linear-gradient(90deg, #f72585, #4cc9f0, #f72585);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shine 3s linear infinite;
-        }
+        h1 { font-size: 4rem; text-transform: uppercase; margin: 0; background: linear-gradient(90deg, #f72585, #4cc9f0, #f72585); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite; }
         @keyframes shine { to { background-position: 200% center; } }
         
-        .glass-box { background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.5); padding: 30px 50px; border-radius: 20px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); }
+        .glass-box { background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.5); padding: 30px; border-radius: 20px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); }
         .glass-stats { display: flex; gap: 40px; justify-content: center; }
         .stat-item { text-align: center; }
         .stat-value { display: block; font-size: 1.8rem; font-weight: bold; color: #1a1a2e; }
@@ -39,21 +24,11 @@
         .btn { padding: 10px 25px; border: none; border-radius: 50px; cursor: pointer; background: rgba(255, 255, 255, 0.5); font-weight: bold; transition: 0.3s; margin: 0 5px; }
         .btn.active { background: #4cc9f0; color: white; }
 
-        /* Nowy, minimalistyczny kalendarz */
-        .calendar-box { margin-top: 30px; width: 450px; padding: 20px; }
-        .calendar-box h3 { text-align: center; color: #1a1a2e; margin-top: 0; }
-        .event-card { 
-            display: flex; align-items: center; 
-            background: rgba(255, 255, 255, 0.4); 
-            padding: 15px; border-radius: 15px; margin-bottom: 10px;
-            transition: transform 0.2s;
-        }
-        .event-card:hover { transform: scale(1.02); }
-        .date-circle { 
-            width: 50px; height: 50px; background: #f72585; color: white; 
-            border-radius: 50%; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; font-size: 0.8rem; margin-right: 15px;
-        }
+        /* Nowoczesny kalendarz */
+        .calendar-box { margin-top: 30px; width: 450px; }
+        .event-grid { display: flex; flex-direction: column; gap: 15px; }
+        .event-card { display: flex; align-items: center; background: rgba(255, 255, 255, 0.5); padding: 15px; border-radius: 15px; border-left: 5px solid #f72585; }
+        .date-box { font-weight: bold; color: #f72585; margin-right: 20px; font-size: 1.2rem; }
     </style>
 </head>
 <body>
@@ -64,24 +39,26 @@
 
     <main class="hero">
         <h1>DISCO ADAMUS</h1>
-        <div class="switcher" style="display:flex; justify-content:center;">
+        <div class="switcher">
             <button class="btn active" onclick="updateStats('youtube', event)">YouTube</button>
             <button class="btn" onclick="updateStats('tiktok', event)">TikTok</button>
         </div>
 
-        <div class="glass-box stats-wrapper">
+        <div class="glass-box">
             <div id="stats-display" class="glass-stats"></div>
         </div>
 
         <div class="glass-box calendar-box">
-            <h3>Nadchodzące Wydarzenia</h3>
-            <div class="event-card">
-                <div class="date-circle"><span>25</span><span>CZER</span></div>
-                <div><strong>Live Q&A</strong><br><small>Spotkanie z widzami</small></div>
-            </div>
-            <div class="event-card">
-                <div class="date-circle"><span>30</span><span>CZER</span></div>
-                <div><strong>Premiera Projektu</strong><br><small>Nowy materiał na YT</small></div>
+            <h3 style="margin-top:0; color:#1a1a2e;">🗓️ Harmonogram</h3>
+            <div class="event-grid">
+                <div class="event-card">
+                    <div class="date-box">25.06</div>
+                    <div><strong>Live Q&A</strong><br><small>Spotkanie z widzami na żywo</small></div>
+                </div>
+                <div class="event-card">
+                    <div class="date-box">30.06</div>
+                    <div><strong>Premiera Projektu</strong><br><small>Nowy materiał na kanale</small></div>
+                </div>
             </div>
         </div>
     </main>
@@ -89,8 +66,8 @@
     <script>
         const data = {
             youtube: [
-                { label: "Subskrypcje", value: 15200, suffix: "K" },
-                { label: "Wyświetleń", value: 4572000, suffix: "M" },
+                { label: "Subskrypcje", value: 12200, suffix: "K" },
+                { label: "Wyświetleń", value: 4572634, suffix: "M" },
                 { label: "Filmów", value: 392, suffix: "" }
             ],
             tiktok: [
@@ -100,21 +77,6 @@
             ]
         };
 
-        function animateNumber(element, target, suffix) {
-            let start = 0;
-            const duration = 2000;
-            const step = target / (duration / 16);
-            const timer = setInterval(() => {
-                start += step;
-                if (start >= target) {
-                    element.innerHTML = (target >= 1000000 ? (target/1000000).toFixed(1) : (target/1000).toFixed(1)) + suffix;
-                    clearInterval(timer);
-                } else {
-                    element.innerHTML = Math.floor(start).toLocaleString();
-                }
-            }, 16);
-        }
-
         function updateStats(platform, event) {
             if (event) {
                 document.querySelectorAll('.btn').forEach(btn => btn.classList.remove('active'));
@@ -123,11 +85,7 @@
             const display = document.getElementById('stats-display');
             display.innerHTML = ""; 
             data[platform].forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'stat-item';
-                div.innerHTML = `<span class="stat-value">0</span>${item.label}`;
-                display.appendChild(div);
-                animateNumber(div.querySelector('.stat-value'), item.value, item.suffix);
+                display.innerHTML += `<div class="stat-item"><span class="stat-value">${item.value.toLocaleString()}${item.suffix}</span>${item.label}</div>`;
             });
         }
         updateStats('youtube');
