@@ -5,150 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discoadamus</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 50px;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .hero {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
-        }
-
-        h1 {
-            font-size: 4rem;
-            text-transform: uppercase;
-            margin: 0;
-            color: #1a1a2e;
-        }
-
-        /* Główny kontener statystyk */
-        .stats-wrapper {
-            position: relative;
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            padding: 30px 50px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Ułożenie poziome statystyk */
-        .glass-stats {
-            display: flex;
-            gap: 40px; 
-            justify-content: center;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-value {
-            display: block;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #1a1a2e;
-        }
-
-        /* Napis powered by */
-        .powered-by {
-            position: absolute;
-            bottom: 10px;
-            left: 20px;
-            font-size: 0.7rem;
-            color: #555;
-            opacity: 0.7;
-        }
-
-        .switcher {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 10px 25px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            background: rgba(255, 255, 255, 0.5);
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .btn.active {
-            background: #4cc9f0;
-            color: white;
-        }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #f5f7fa, #c3cfe2); height: 100vh; display: flex; flex-direction: column; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.3); }
+        .hero { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; }
+        h1 { font-size: 4rem; text-transform: uppercase; margin: 0; color: #1a1a2e; }
+        .stats-wrapper { position: relative; background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.5); padding: 30px 50px; border-radius: 20px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); }
+        .glass-stats { display: flex; gap: 40px; justify-content: center; }
+        .stat-item { text-align: center; }
+        .stat-value { display: block; font-size: 1.8rem; font-weight: bold; color: #1a1a2e; }
+        .powered-by { position: absolute; bottom: 10px; left: 15px; font-size: 0.7rem; color: #555; opacity: 0.7; }
+        .switcher { display: flex; gap: 15px; justify-content: center; }
+        .btn { padding: 10px 25px; border: none; border-radius: 50px; cursor: pointer; background: rgba(255, 255, 255, 0.5); font-weight: bold; transition: 0.3s; }
+        .btn.active { background: #4cc9f0; color: white; }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo"><strong>Discoadamus</strong></div>
-    </nav>
+    <nav class="navbar"><div class="logo"><strong>Discoadamus</strong></div></nav>
 
     <main class="hero">
         <h1>DISCO ADAMUS</h1>
-        
         <div class="switcher">
-            <button class="btn active" onclick="showStats('youtube', event)">YouTube</button>
-            <button class="btn" onclick="showStats('tiktok', event)">TikTok</button>
+            <button class="btn active" onclick="updateStats('youtube', event)">YouTube</button>
+            <button class="btn" onclick="updateStats('tiktok', event)">TikTok</button>
         </div>
 
         <div class="stats-wrapper">
-            <div id="stats-display" class="glass-stats">
-                <div class="stat-item"><span class="stat-value">12.5K</span> Subskrypcji</div>
-                <div class="stat-item"><span class="stat-value">1.2M</span> Wyświetleń</div>
-                <div class="stat-item"><span class="stat-value">142</span> Filmów</div>
-            </div>
+            <div id="stats-display" class="glass-stats"></div>
             <div class="powered-by">Powered by SocialBlade</div>
         </div>
     </main>
 
     <script>
-        const stats = {
-            youtube: `
-                <div class="stat-item"><span class="stat-value">12.5K</span> Subskrypcji</div>
-                <div class="stat-item"><span class="stat-value">1.2M</span> Wyświetleń</div>
-                <div class="stat-item"><span class="stat-value">142</span> Filmów</div>
-            `,
-            tiktok: `
-                <div class="stat-item"><span class="stat-value">45.2K</span> Obserwujących</div>
-                <div class="stat-item"><span class="stat-value">890K</span> Polubień</div>
-                <div class="stat-item"><span class="stat-value">320</span> Klipów</div>
-            `
+        // --- TU EDYTUJ SWOJE STATYSTYKI ---
+        const data = {
+            youtube: [
+                { label: "Subskrypcje", value: 12500, suffix: "K" },
+                { label: "Wyświetleń", value: 1200000, suffix: "M" },
+                { label: "Filmów", value: 142, suffix: "" }
+            ],
+            tiktok: [
+                { label: "Obserwujący", value: 45200, suffix: "K" },
+                { label: "Polubień", value: 890000, suffix: "K" },
+                { label: "Klipów", value: 320, suffix: "" }
+            ]
         };
 
-        function showStats(platform, event) {
-            const display = document.getElementById('stats-display');
-            const buttons = document.querySelectorAll('.btn');
+        function animateNumber(element, target, suffix) {
+            let start = 0;
+            const duration = 2000; // Czas animacji w ms
+            const step = target / (duration / 16);
             
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            display.innerHTML = stats[platform];
+            const timer = setInterval(() => {
+                start += step;
+                if (start >= target) {
+                    element.innerHTML = Math.floor(target).toLocaleString() + suffix;
+                    clearInterval(timer);
+                } else {
+                    element.innerHTML = Math.floor(start).toLocaleString();
+                }
+            }, 16);
         }
+
+        function updateStats(platform, event) {
+            if (event) {
+                document.querySelectorAll('.btn').forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+            }
+
+            const display = document.getElementById('stats-display');
+            display.innerHTML = ""; // Czyści obecne
+
+            data[platform].forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'stat-item';
+                div.innerHTML = `<span class="stat-value" id="val">0</span>${item.label}`;
+                display.appendChild(div);
+                animateNumber(div.querySelector('.stat-value'), item.value, item.suffix);
+            });
+        }
+
+        // Start domyślny
+        updateStats('youtube');
     </script>
 </body>
 </html>
